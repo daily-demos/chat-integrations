@@ -2,6 +2,8 @@
 
 This project demonstrates one way to integrate a [Daily Prebuilt](https://daily.co/prebuilt) call with [TalkJS's Chatbox](https://talkjs.com/docs/Reference/JavaScript_Chat_SDK/Chatbox/) in a group call. Minor changes could accommodate TalkJS's other chat integration options, such as one to one calls. We encourage you to fork and update this repo however you see fit!
 
+<img src="demo1.png" alt="Join form">
+
 ## Running this demo locally
 
 In the project directory, you can run:
@@ -40,3 +42,5 @@ You will need two pieces of information for this demo:
 - the Test App ID, available in the TalkJS dashboard (string)
 - a role type, which can be created from the TalkJS dashboard (string)
   - set this new role type to "participant" or, if you use a different role type, update the `role` value in `Chat.jsx`
+
+<img src="demo2.png" alt="Call UI with TalkJS chat">
