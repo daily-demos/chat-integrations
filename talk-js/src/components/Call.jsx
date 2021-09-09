@@ -1,8 +1,11 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import DailyIframe from "@daily-co/daily-js";
 import Chat from "./Chat";
 import api from "../api";
 
+/**
+ * daily-js call properties: https://docs.daily.co/reference/daily-js/daily-iframe-class/properties
+ */
 const CALL_OPTIONS = {
   iframeStyle: {
     width: "100%",
@@ -23,6 +26,9 @@ function Call({ room, setCallFrame, callFrame, setRoom, localUsername }) {
   const [participants, setParticipants] = useState(null);
   const [hasJoinedMeeting, setHasJoinedMeeting] = useState(false);
 
+  /**
+   * Destroy TalkJS chat widget and reset daily-js-related state
+   */
   const leaveCall = useCallback(() => {
     if (window.talkSession) {
       window.talkSession.destroy();
@@ -36,6 +42,9 @@ function Call({ room, setCallFrame, callFrame, setRoom, localUsername }) {
     callFrame.destroy();
   }, [callFrame, setCallFrame, setRoom, room, participants]);
 
+  /**
+   * Create the Daily iframe and join with username from JoinForm
+   */
   const createAndJoinCall = useCallback(() => {
     const newCallFrame = DailyIframe.createFrame(
       callRef?.current,
@@ -64,8 +73,12 @@ function Call({ room, setCallFrame, callFrame, setRoom, localUsername }) {
       .on("participant-updated", (e) => updateParticipants(e, newCallFrame));
 
     setCallFrame(newCallFrame);
-  }, [room, setCallFrame, localUsername]);
+  }, [room, setCallFrame, localUsername, hasJoinedMeeting]);
 
+  /**
+   * Initiate Daily iframe creation on component render if it doesn't
+   * already exist
+   */
   useEffect(() => {
     if (callFrame) return;
 

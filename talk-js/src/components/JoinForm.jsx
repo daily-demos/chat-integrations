@@ -3,6 +3,10 @@ import { useRef } from "react";
 function JoinForm({ setRoom, setLocalUsername }) {
   const roomRef = useRef(null);
 
+  /**
+   * Set roomUrl in local state on submit to trigger Daily
+   * iframe being created in Call component
+   */
   const joinCall = (e) => {
     e.preventDefault();
     const roomUrl = roomRef?.current?.value;

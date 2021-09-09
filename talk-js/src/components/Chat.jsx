@@ -9,6 +9,10 @@ function Chat({ participants, room }) {
   const local = useMemo(() => participants?.local, [participants]);
 
   useEffect(() => {
+    /**
+     * Initialize TalkJS chat with the local user's info provided by
+     * the Daily callFrame
+     */
     const setUpTalkJs = async (user) => {
       await Talk.ready;
       if (!window.talkSession) {
@@ -22,14 +26,19 @@ function Chat({ participants, room }) {
           appId: process.env.REACT_APP_TALK_JS_APP_ID,
           me,
         });
+
         const conversation = window.talkSession.getOrCreateConversation(room);
+
         conversation.setAttributes({
           subject: "What's on your mind?",
         });
 
         conversation.setParticipant(me);
+
         const cb = window.talkSession.createChatbox(conversation);
         cb.mount(chatRef?.current);
+
+        // Set chat in local state so we know if it's set up already
         setChatbox(cb);
       }
     };
