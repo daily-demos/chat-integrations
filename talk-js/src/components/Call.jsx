@@ -102,7 +102,6 @@ function Call({ room, setCallFrame, callFrame, setRoom, localUsername }) {
           <Chat
             participants={participants}
             room={room}
-            talkSession={talkSession}
             setTalkSession={setTalkSession}
           />
         )}

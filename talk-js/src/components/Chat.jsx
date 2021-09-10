@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Talk from "talkjs";
 import Loader from "./Loader";
 
-function Chat({ participants, room, talkSession, setTalkSession }) {
+function Chat({ participants, room, setTalkSession }) {
   const chatRef = useRef(null);
   const [chatbox, setChatbox] = useState(null);
 
@@ -13,41 +13,40 @@ function Chat({ participants, room, talkSession, setTalkSession }) {
      * Initialize TalkJS chat with the local user's info provided by
      * the Daily callFrame
      */
-    const setUpTalkJs = async (user, session) => {
+    const setUpTalkJs = async (user) => {
       await Talk.ready;
-      if (!session) {
-        const me = new Talk.User({
-          id: user.session_id,
-          name: user.user_name || "Local guest",
-          role: "participant",
-        });
 
-        session = new Talk.Session({
-          appId: process.env.REACT_APP_TALK_JS_APP_ID,
-          me,
-        });
+      const me = new Talk.User({
+        id: user.session_id,
+        name: user.user_name || "Local guest",
+        role: "participant",
+      });
 
-        const conversation = session.getOrCreateConversation(room);
+      const session = new Talk.Session({
+        appId: process.env.REACT_APP_TALK_JS_APP_ID,
+        me,
+      });
 
-        conversation.setAttributes({
-          subject: "What's on your mind?",
-        });
+      const conversation = session.getOrCreateConversation(room);
 
-        conversation.setParticipant(me);
+      conversation.setAttributes({
+        subject: "What's on your mind?",
+      });
 
-        const cb = session.createChatbox(conversation);
-        cb.mount(chatRef?.current);
+      conversation.setParticipant(me);
 
-        // Set chat in local state so we know if it's set up already
-        setChatbox(cb);
-        setTalkSession(session);
-      }
+      const cb = session.createChatbox(conversation);
+      cb.mount(chatRef?.current);
+
+      // Set chat in local state so we know if it's set up already
+      setChatbox(cb);
+      setTalkSession(session);
     };
 
     if (local && !chatbox) {
       setUpTalkJs(local);
     }
-  }, [chatbox, local, room, talkSession, setTalkSession]);
+  }, [chatbox, local, room, setTalkSession]);
 
   return (
     <div className="chat-container">
