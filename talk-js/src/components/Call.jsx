@@ -25,14 +25,15 @@ function Call({ room, setCallFrame, callFrame, setRoom, localUsername }) {
   const callRef = useRef(null);
   const [participants, setParticipants] = useState(null);
   const [hasJoinedMeeting, setHasJoinedMeeting] = useState(false);
+  const [talkSession, setTalkSession] = useState(null);
 
   /**
    * Destroy TalkJS chat widget and reset daily-js-related state
    */
   const leaveCall = useCallback(() => {
-    if (window.talkSession) {
-      window.talkSession.destroy();
-      window.talkSession = null;
+    if (talkSession) {
+      talkSession.destroy();
+      setTalkSession(null);
       // Remove the user from the chat after they leave the call
       api.leaveTalkJsConversation(room, participants.local.session_id);
     }
@@ -40,7 +41,15 @@ function Call({ room, setCallFrame, callFrame, setRoom, localUsername }) {
     setCallFrame(null);
     setHasJoinedMeeting(false);
     callFrame.destroy();
-  }, [callFrame, setCallFrame, setRoom, room, participants]);
+  }, [
+    callFrame,
+    setCallFrame,
+    setRoom,
+    room,
+    participants,
+    talkSession,
+    setTalkSession,
+  ]);
 
   /**
    * Create the Daily iframe and join with username from JoinForm
@@ -56,12 +65,6 @@ function Call({ room, setCallFrame, callFrame, setRoom, localUsername }) {
     const updateParticipants = (_, cf) => {
       const participants = cf?.participants();
 
-      /**
-       * Minor workaround. We don't want to initialize the chat until the
-       * username is updated, which doesn't happen until right after joining.
-       * So we need to wait for the new username to be set before passing it
-       * to TalkJS.
-       */
       if (!hasJoinedMeeting && participants.local.user_name === localUsername) {
         setHasJoinedMeeting(true);
       }
@@ -87,6 +90,7 @@ function Call({ room, setCallFrame, callFrame, setRoom, localUsername }) {
 
   return (
     <div className="call-container">
+      {/* Daily iframe container */}
       <div className="call" ref={callRef}></div>
       <div className="chat-content">
         {hasJoinedMeeting && (
@@ -94,7 +98,14 @@ function Call({ room, setCallFrame, callFrame, setRoom, localUsername }) {
             Leave call
           </button>
         )}
-        {hasJoinedMeeting && <Chat participants={participants} room={room} />}
+        {hasJoinedMeeting && (
+          <Chat
+            participants={participants}
+            room={room}
+            talkSession={talkSession}
+            setTalkSession={setTalkSession}
+          />
+        )}
       </div>
       <style jsx="true">{`
         .call-container {

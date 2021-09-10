@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState } from "react";
 import Talk from "talkjs";
 import Loader from "./Loader";
 
-function Chat({ participants, room }) {
+function Chat({ participants, room, talkSession, setTalkSession }) {
   const chatRef = useRef(null);
   const [chatbox, setChatbox] = useState(null);
 
@@ -13,21 +13,21 @@ function Chat({ participants, room }) {
      * Initialize TalkJS chat with the local user's info provided by
      * the Daily callFrame
      */
-    const setUpTalkJs = async (user) => {
+    const setUpTalkJs = async (user, session) => {
       await Talk.ready;
-      if (!window.talkSession) {
+      if (!session) {
         const me = new Talk.User({
           id: user.session_id,
           name: user.user_name || "Local guest",
           role: "participant",
         });
 
-        window.talkSession = new Talk.Session({
+        session = new Talk.Session({
           appId: process.env.REACT_APP_TALK_JS_APP_ID,
           me,
         });
 
-        const conversation = window.talkSession.getOrCreateConversation(room);
+        const conversation = session.getOrCreateConversation(room);
 
         conversation.setAttributes({
           subject: "What's on your mind?",
@@ -35,18 +35,19 @@ function Chat({ participants, room }) {
 
         conversation.setParticipant(me);
 
-        const cb = window.talkSession.createChatbox(conversation);
+        const cb = session.createChatbox(conversation);
         cb.mount(chatRef?.current);
 
         // Set chat in local state so we know if it's set up already
         setChatbox(cb);
+        setTalkSession(session);
       }
     };
 
     if (local && !chatbox) {
       setUpTalkJs(local);
     }
-  }, [chatbox, local, room]);
+  }, [chatbox, local, room, talkSession, setTalkSession]);
 
   return (
     <div className="chat-container">
