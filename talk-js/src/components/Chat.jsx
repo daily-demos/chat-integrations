@@ -51,7 +51,7 @@ function Chat({ participants, room, setTalkSession }) {
   return (
     <div className="chat-container">
       {local && (
-        <div style={{ height: "520px" }} ref={chatRef}>
+        <div style={{ height: "500px" }} ref={chatRef}>
           <Loader />
         </div>
       )}

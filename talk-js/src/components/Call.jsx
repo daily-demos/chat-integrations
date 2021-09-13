@@ -121,12 +121,10 @@ function Call({
         .call {
           max-width: 700px;
           flex: 1;
-          margin-bottom: 1rem;
         }
 
         .chat-content {
           padding: 0 2rem;
-          justify-content: flex-end;
           display: flex;
           flex-direction: column;
         }
@@ -147,6 +145,9 @@ function Call({
           .call-container {
             flex-direction: column;
             align-items: center;
+          }
+          .call {
+            margin-bottom: 1rem;
           }
         }
       `}</style>
