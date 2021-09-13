@@ -1,6 +1,6 @@
 /**
  * These endpoints are included client-side for demo purposes only.
- * Do *not* included these endpoints client-side in production code to ensure API keys are not exposed.
+ * Do *not* include these endpoints client-side in production code to ensure API keys are not exposed.
  */
 const api = {
   leaveTalkJsConversation: async (conversationId, userId) => {
