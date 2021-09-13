@@ -35,7 +35,7 @@ function Call({
   const [talkSession, setTalkSession] = useState(null);
 
   /**
-   * Destroy TalkJS chat widget and reset daily-js-related state
+   * Destroy TalkJS chat widget and reset all related state
    */
   const leaveCall = useCallback(() => {
     if (talkSession) {
@@ -47,6 +47,7 @@ function Call({
     setRoom(null);
     setCallFrame(null);
     setHasJoinedMeeting(false);
+    callFrame.leave();
     callFrame.destroy();
   }, [
     callFrame,
