@@ -21,7 +21,14 @@ const CALL_OPTIONS = {
   showLeaveButton: false,
 };
 
-function Call({ room, setCallFrame, callFrame, setRoom, localUsername }) {
+function Call({
+  room,
+  setCallFrame,
+  callFrame,
+  setRoom,
+  localUsername,
+  token,
+}) {
   const callRef = useRef(null);
   const [participants, setParticipants] = useState(null);
   const [hasJoinedMeeting, setHasJoinedMeeting] = useState(false);
@@ -60,23 +67,23 @@ function Call({ room, setCallFrame, callFrame, setRoom, localUsername }) {
       CALL_OPTIONS
     );
 
-    newCallFrame.join({ url: room, userName: localUsername });
+    newCallFrame.join({ url: room, userName: localUsername, token });
 
-    const updateParticipants = (_, cf) => {
-      const participants = cf?.participants();
-
-      if (!hasJoinedMeeting && participants.local.user_name === localUsername) {
-        setHasJoinedMeeting(true);
-      }
+    const updateParticipants = (cf) => {
       setParticipants(cf?.participants());
     };
 
+    const joinedMeeting = (cf) => {
+      setParticipants(cf?.participants());
+      setHasJoinedMeeting(true);
+    };
+
     newCallFrame
-      .on("joined-meeting", (e) => updateParticipants(e, newCallFrame))
+      .on("joined-meeting", () => joinedMeeting(newCallFrame))
       .on("participant-updated", (e) => updateParticipants(e, newCallFrame));
 
     setCallFrame(newCallFrame);
-  }, [room, setCallFrame, localUsername, hasJoinedMeeting]);
+  }, [room, setCallFrame, localUsername, token]);
 
   /**
    * Initiate Daily iframe creation on component render if it doesn't

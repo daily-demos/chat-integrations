@@ -1,18 +1,32 @@
 import { useRef } from "react";
+import api from "../api";
 
-function JoinForm({ setRoom, setLocalUsername }) {
+function JoinForm({ setRoom, setLocalUsername, setToken }) {
   const roomRef = useRef(null);
+  const usernameRef = useRef(null);
 
   /**
    * Set roomUrl in local state on submit to trigger Daily
    * iframe being created in Call component
    */
-  const joinCall = (e) => {
+  const joinCall = async (e) => {
     e.preventDefault();
     const roomUrl = roomRef?.current?.value;
+    const name = usernameRef?.current?.value;
     if (!roomUrl) return; //TODO: handle error
 
-    setRoom(roomUrl);
+    // Get the room name from the URL
+    // https://DOMAIN.daily.co/ROOM_NAME
+    const roomName = roomUrl.split("/").at(-1);
+
+    const res = await api.createDailyToken(roomName, name);
+    if (res.token) {
+      setToken(res.token);
+      setLocalUsername(name);
+      setRoom(roomUrl);
+    } else {
+      //TODO: show error
+    }
   };
 
   return (
@@ -24,12 +38,7 @@ function JoinForm({ setRoom, setLocalUsername }) {
       </div>
       <div className="input-container">
         <label htmlFor="username">Your Name</label>
-        <input
-          id="username"
-          type="text"
-          onChange={(e) => setLocalUsername(e.target.value)}
-          required
-        />
+        <input id="username" type="text" ref={usernameRef} required />
       </div>
       <input type="submit" value="Join call" />
       <style jsx="true">{`

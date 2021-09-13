@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 function App() {
   const [room, setRoom] = useState(null);
   const [localUsername, setLocalUsername] = useState(null);
+  const [token, setToken] = useState(null);
   const [callFrame, setCallFrame] = useState(null);
 
   /**
@@ -30,9 +31,14 @@ function App() {
             callFrame={callFrame}
             setRoom={setRoom}
             localUsername={localUsername}
+            token={token}
           />
         ) : (
-          <JoinForm setRoom={setRoom} setLocalUsername={setLocalUsername} />
+          <JoinForm
+            setRoom={setRoom}
+            setToken={setToken}
+            setLocalUsername={setLocalUsername}
+          />
         )}
       </main>
       <Footer />
