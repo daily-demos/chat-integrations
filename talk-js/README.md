@@ -1,12 +1,23 @@
 # Daily and TalkJS chat integration demo app
 
-This project demonstrates one way to integrate a [Daily Prebuilt](https://daily.co/prebuilt) call with [TalkJS's Chatbox](https://talkjs.com/docs/Reference/JavaScript_Chat_SDK/Chatbox/) in a group call. Minor changes could accommodate TalkJS's other chat integration options, such as one to one calls. We encourage you to fork and update this repo however you see fit!
+This project demonstrates one way to integrate a [Daily Prebuilt](https://daily.co/prebuilt) call with [TalkJS's Chatbox](https://talkjs.com/docs/Reference/JavaScript_Chat_SDK/Chatbox/) in a group call.
 
 <img src="demo1.png" alt="Join form">
 
+---
+
 ## Running this demo locally
 
-In the project directory, you can run:
+You will need to set two environment variables locally to use this demo app. Rename `.env.sample` to `.env` and update the following values:
+
+```
+REACT_APP_TALK_JS_APP_ID=
+REACT_APP_DAILY_API_KEY=
+```
+
+(See below for instructions on where to create/retrieve these values.)
+
+Next, in the project directory, run:
 
 ```bash
 yarn
