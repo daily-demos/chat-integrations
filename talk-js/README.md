@@ -15,6 +15,17 @@ yarn start
 
 Open http://localhost:3000 to view it in the browser.
 
+## Setting your local environment variables
+
+Before starting the server, create an `.env` file with the following values:
+
+```
+REACT_APP_TALK_JS_APP_ID="your-app-id"
+REACT_APP_DAILY_API_KEY="your-daily-api-key"
+```
+
+You can also copy the `.env.sample` file provided in the root directory.
+
 ---
 
 ## Setting up Daily and TalkJS accounts
