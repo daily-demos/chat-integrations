@@ -89,7 +89,7 @@ function Chat() {
         </div>
       )}
       {chat?.error && <p className="error-msg">{chat?.error.toString()}</p>}
-      <style jsx="true">{`
+      <style jsx>{`
         .error-msg {
           color: #f63135;
         }

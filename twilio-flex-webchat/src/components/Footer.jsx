@@ -39,7 +39,7 @@ const Footer = () => {
           </a>
         </div>
       </div>
-      <style jsx="true">{`
+      <style jsx>{`
         .footer-container {
           display: flex;
           flex-direction: column;

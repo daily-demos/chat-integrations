@@ -114,7 +114,7 @@ function Call({
           />
         )}
       </div>
-      <style jsx="true">{`
+      <style jsx>{`
         .call-container {
           display: flex;
           justify-content: space-between;

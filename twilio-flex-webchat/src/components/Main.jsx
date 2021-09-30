@@ -13,7 +13,7 @@ function Main() {
         Daily call.
       </p>
       <Chat />
-      <style jsx="true">{`
+      <style jsx>{`
         main {
           padding: 2rem;
           flex: 1;

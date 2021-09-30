@@ -106,7 +106,7 @@ const DailyVideo = ({
       </div>
       {/* Daily iframe container */}
       <div className="call" ref={callRef}></div>
-      <style jsx="true">{`
+      <style jsx>{`
         .call-container {
           position: fixed;
           right: 305px;

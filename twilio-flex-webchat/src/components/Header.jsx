@@ -10,7 +10,7 @@ function Header() {
       <a href="https://github.com/daily-demos/chat-integrations">
         <img className="icon" src={githubIcon} alt="Demo repo on Github" />
       </a>
-      <style jsx="true">{`
+      <style jsx>{`
         header {
           padding: 2rem;
           display: flex;
