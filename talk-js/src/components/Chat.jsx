@@ -55,7 +55,7 @@ function Chat({ participants, room, setTalkSession }) {
           <Loader />
         </div>
       )}
-      <style jsx="true">{`
+      <style jsx>{`
         .chat-container {
           width: 100%;
         }

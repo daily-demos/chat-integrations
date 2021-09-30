@@ -49,7 +49,7 @@ const Loading = () => {
           </circle>
         </g>
       </svg>
-      <style jsx="true">
+      <style jsx>
         {`
           svg {
             height: 32px;

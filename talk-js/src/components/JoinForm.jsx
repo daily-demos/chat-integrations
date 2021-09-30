@@ -41,7 +41,7 @@ function JoinForm({ setRoom, setLocalUsername, setToken }) {
         <input id="username" type="text" ref={usernameRef} required />
       </div>
       <input type="submit" value="Join call" />
-      <style jsx="true">{`
+      <style jsx>{`
         form {
           margin-top: 5rem;
           display: flex;

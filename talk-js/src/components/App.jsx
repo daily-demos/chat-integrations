@@ -42,7 +42,7 @@ function App() {
         )}
       </main>
       <Footer />
-      <style jsx="true">{`
+      <style jsx>{`
         .app-container {
           display: flex;
           flex-direction: column;
