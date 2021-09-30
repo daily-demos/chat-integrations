@@ -1,6 +1,7 @@
 /**
  * These endpoints are included client-side for demo purposes only.
  * Do *not* include these endpoints client-side in production code to ensure API keys are not exposed.
+ * If you're looking for an example of how to deploy a backend server, here's a tutorial: https://www.daily.co/blog/deploy-a-daily-co-backend-node-js-server-instantly/"
  */
 const api = {
   createDailyRoom: async () => {
