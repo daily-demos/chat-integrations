@@ -17,7 +17,7 @@ const CALL_OPTIONS = {
       0 4px 8px rgba(0, 0, 0, 0.02), 0 8px 16px rgba(0, 0, 0, 0.02),
       0 16px 32px rgba(0, 0, 0, 0.02)`,
   },
-  showLeaveButton: false,
+  showLeaveButton: false, // We'll use a custom button instead
   showParticipantsBar: false,
 };
 
@@ -99,13 +99,11 @@ const DailyVideo = ({
   return (
     <div className="call-container">
       {error && <p className="error-msg">{error}</p>}
-      <div className="leave-call-container">
-        <button className="leave-call-button" onClick={leaveCall}>
-          x
-        </button>
-      </div>
       {/* Daily iframe container */}
       <div className="call" ref={callRef}></div>
+      <button className="leave-call-button" onClick={leaveCall}>
+        Leave call
+      </button>
       <style jsx>{`
         .call-container {
           position: fixed;
@@ -117,17 +115,15 @@ const DailyVideo = ({
         .error-msg {
           color: #f63135;
         }
-        .leave-call-container {
-          margin-left: auto;
-        }
         .leave-call-button {
           background-color: #f63135;
           border: 1px solid #f63135;
           color: #fff;
           border-radius: 4px;
           margin-bottom: 4px;
-          padding: 2px 8px;
+          padding: 4px 8px;
           cursor: pointer;
+          font-weight: bold;
         }
         .leave-call-button:active {
           opacity: 0.6;
