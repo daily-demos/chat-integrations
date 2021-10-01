@@ -1,12 +1,7 @@
 const config = {
   disableLocalStorage: true,
-  chatFriendlyName: "Jess",
   accountSid: process.env.REACT_APP_TWILIO_ACCOUNT_SID,
   flexFlowSid: process.env.REACT_APP_TWILIO_FLEX_FLOW_SID,
-  // Optional: update theme: https://www.twilio.com/docs/flex/developer/webchat/theming
-  // colorTheme: {
-  //   overrides,
-  // },
   startEngagementOnInit: false,
   preEngagementConfig: {
     description: "Please provide some information",
