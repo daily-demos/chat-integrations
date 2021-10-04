@@ -9,7 +9,7 @@ function JoinForm({ setRoom, setLocalUsername, setToken }) {
    * Set roomUrl in local state on submit to trigger Daily
    * iframe being created in Call component
    */
-  const joinCall = async (e) => {
+  const submitJoinForm = async (e) => {
     e.preventDefault();
     const roomUrl = roomRef?.current?.value;
     const name = usernameRef?.current?.value;
@@ -30,7 +30,7 @@ function JoinForm({ setRoom, setLocalUsername, setToken }) {
   };
 
   return (
-    <form onSubmit={joinCall}>
+    <form onSubmit={submitJoinForm}>
       <h1>Daily + TalkJS demo</h1>
       <div className="input-container">
         <label htmlFor="room">Daily room URL</label>
